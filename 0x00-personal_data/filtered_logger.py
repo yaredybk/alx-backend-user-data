@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """0x00. Personal data
 """
+import csv
 import logging
+import os
 import re
 from typing import List
+import mysql.connector
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -53,3 +56,16 @@ def get_logger() -> logging.Logger:
     sh.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(sh)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """Connector to the database.
+
+    (mysql.connector.connection.MySQLConnection object).
+    """
+    return mysql.connector.connect(
+        host=os.getenv("PERSONAL_DATA_DB_HOST", "root"),
+        database=os.getenv("PERSONAL_DATA_DB_NAME"),
+        user=os.getenv("PERSONAL_DATA_DB_USERNAME", "localhost"),
+        password=os.getenv("PERSONAL_DATA_DB_PASSWORD", ""),
+    )
