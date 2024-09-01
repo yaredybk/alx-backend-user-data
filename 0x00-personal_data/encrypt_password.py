@@ -3,7 +3,7 @@
 import bcrypt
 
 
-def hash_password(password : str) -> bytes:
+def hash_password(password: str) -> bytes:
     """Hash and Salt password
 
     Returns:
