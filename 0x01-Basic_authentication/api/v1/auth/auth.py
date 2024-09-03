@@ -21,8 +21,8 @@ class Auth:
         """
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
-        if (path.endsWith("/") and path in excluded_paths) or
-        path + "/" in excluded_paths:
+        if (path.endsWith("/") and path in excluded_paths) or \
+                path + "/" in excluded_paths:
             return False
         return True
 
