@@ -42,11 +42,14 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def auth_check(request):
+def auth_check(request) -> str:
     """ filtering of each request.
     """
     if auth = None:
         return
+    ign = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    if not auth.require_auth(request.path, ign):
+        return abort(401)
     if auth.authorization_header(request) is None:
         return abort(401)
     if auth.current_user(request) is None:
