@@ -45,7 +45,7 @@ def forbidden(error) -> str:
 def auth_check(request) -> str:
     """ filtering of each request.
     """
-    if auth = None:
+    if auth is None:
         return
     ign = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if not auth.require_auth(request.path, ign):
