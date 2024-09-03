@@ -5,6 +5,7 @@ AUTH basic.
 from flask import request
 from typing import List, TypeVar
 
+
 class Auth:
     """Auth class.
     """
@@ -13,9 +14,17 @@ class Auth:
         """
         require auth
 
-        Returs:
-            False
+        Returns.
+            True if path is None
+            True if excluded_paths is None or empty
+            False if path is in excluded_paths
         """
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+            return True
+        if (path.endsWith("/") and path in excluded_paths) or
+        path + "/" in excluded_paths:
+            return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """authorization header setter.
