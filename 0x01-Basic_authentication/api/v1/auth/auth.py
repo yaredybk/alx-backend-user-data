@@ -21,15 +21,17 @@ class Auth:
         """
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
-        if (path.endsWith("/") and path in excluded_paths) or \
+        if (path.endswith("/") and path in excluded_paths) or \
                 path + "/" in excluded_paths:
             return False
         return True
 
     def authorization_header(self, request=None) -> str:
-        """authorization header setter.
+        """authorization header / None if does not exit.
         """
-        return None
+        if request is None:
+            return None
+        return request.headers.get("Authorization", None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Get curret user.
