@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-AUTH
+AUTH basic.
 """
 from flask import request
-
+from typing import List, TypeVar
 
 class Auth:
     """Auth class.
@@ -18,9 +18,11 @@ class Auth:
         """
 
     def authorization_header(self, request=None) -> str:
-        """authorization header setter."""
+        """authorization header setter.
+        """
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """Get curret user."""
+        """Get curret user.
+        """
         return None
