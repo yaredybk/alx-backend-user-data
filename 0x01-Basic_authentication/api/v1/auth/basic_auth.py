@@ -51,7 +51,7 @@ class BasicAuth(Auth):
         """user email and password from the Base64 decoded value."""
         if type(decoded_base64_authorization_header) == str:
             p = r'([^:]*):(.*)'
-            match = re.match(p, string)
+            match = re.match(p, decoded_base64_authorization_header)
             if match:
                 return match.groups()
         else:
