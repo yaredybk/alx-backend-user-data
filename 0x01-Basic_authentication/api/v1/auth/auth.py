@@ -23,8 +23,8 @@ class Auth:
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
         for p in excluded_paths:
-            p = rf"^{p.replace('/$', '')}"
-            path = path.replace('/$', '')
+            p = rf"^{re.sub(r'/$', '', p)}"
+            path = re.sub(r"/$", "", path)
             m = re.match(p, path)
             if m:
                 return False
