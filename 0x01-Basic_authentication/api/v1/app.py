@@ -47,7 +47,7 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def auth_check(request) -> str:
+def auth_check() -> str:
     """ filtering of each request.
     """
     if auth is None:
