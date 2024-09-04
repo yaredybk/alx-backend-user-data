@@ -3,6 +3,7 @@
 AUTH basic.
 """
 from flask import request
+import re
 from typing import List, TypeVar
 
 
@@ -24,7 +25,7 @@ class Auth:
         for p in excluded_paths:
             p = rf"^{p.replace('/$', '')}"
             path = path.replace('/$', '')
-            m = path.match(p)
+            m = re.match(p, path)
             if m:
                 return False
         return True
