@@ -53,8 +53,8 @@ def auth_check() -> str:
     if auth is None:
         return
     tmp = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
-    if auth.require_auth(request.path, tmp):
-        return abort(401)
+    if not auth.require_auth(request.path, tmp):
+        return
     if auth.authorization_header(request) is None:
         return abort(401)
     if auth.current_user(request) is None:
