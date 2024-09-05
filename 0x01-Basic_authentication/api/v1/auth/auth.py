@@ -23,7 +23,9 @@ class Auth:
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
         for p in excluded_paths:
-            p = re.sub(r'/$|\*$', lambda m: '' if m.group() == '/' else '.*', p)
+            p = re.sub(r'/$|\*$',
+                       lambda m: '' if m.group() == '/' else '.*',
+                       p)
             p = f"^{p}$"
             path = re.sub(r"/$", "", path)
             m = re.match(p, path)
