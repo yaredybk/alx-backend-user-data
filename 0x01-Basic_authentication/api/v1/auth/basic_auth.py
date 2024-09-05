@@ -54,8 +54,7 @@ class BasicAuth(Auth):
             match = re.match(p, decoded_base64_authorization_header)
             if match:
                 return match.groups()
-        else:
-            return None, None
+        return None, None
 
     def user_object_from_credentials(
             self,
