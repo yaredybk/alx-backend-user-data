@@ -21,7 +21,7 @@ def login() -> str:
         users = User.search({'email': user_email})
     except Exception:
         return jsonify({"error": "no user found for this email"}), 404
-    if not users is:
+    if not users:
         return jsonify({"error": "no user found for this email"}), 404
     user = None
     password = User.is_valid_password(password)
