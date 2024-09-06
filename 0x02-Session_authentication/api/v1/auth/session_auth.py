@@ -19,7 +19,7 @@ class SessionAuth(Auth):
         """Create a Session ID for a user_id"""
         if user_id is None or type(user_id) is not str:
             return None
-        tmp = uuid4()
+        tmp = str(uuid4())
         self.user_id_by_session_id[tmp] = user_id
         return tmp
 
@@ -27,12 +27,12 @@ class SessionAuth(Auth):
         """Get a User ID based on a Session ID:"""
         if session_id is None or type(session_id) is not str:
             return None
-        return user_id_by_session_id.get(session_id)
+        return self.user_id_by_session_id.get(session_id)
 
     def current_user(self, request=None):
         """GET a User instance based on a cookie value."""
         c = self.session_cookie(request)
-        user_id  = self.user_id_for_session_id(c)
+        user_id = self.user_id_for_session_id(c)
         return User.get(user_id)
 
     def destroy_session(self, request=None):
