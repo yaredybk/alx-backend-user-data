@@ -24,11 +24,9 @@ def login() -> str:
     if not users:
         return jsonify({"error": "no user found for this email"}), 404
     user = None
-    password = User.is_valid_password(password)
-    if not password:
-        return jsonify({"error": "wrong password"}), 401
     for u in users:
-        if u.password == password:
+        valid = u.is_valid_password(password)
+        if valid:
             user = u
             break
     if user is None:
