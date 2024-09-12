@@ -37,3 +37,25 @@ class DB:
         session.add(u)
         session.commit()
         return u
+
+    def find_user(self), **kwargs) ->User:
+        """find user based on all kwargs
+
+        Raises:
+            InvalidRequestError if kwargs is None or
+                                   has keys not in User class
+        Returns:
+            the first User match in db
+        """
+        if not kwargs:
+            raise InvalidRequestError
+
+        keys = set(kwargs.keys())
+        user_cols = set(User.__table__columns.keys())
+        if not keys.issuset(user_cols):
+            raise InvalidRequestError
+
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if not user:
+            raise NoResultFound
+        return user
