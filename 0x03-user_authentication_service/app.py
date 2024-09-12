@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """API Routes for Authentication Service"""
+from db import DB
 from auth import Auth
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort, redirect
+from auth import Auth
+from user import User
 
 
+AUTH = Auth()
 app = Flask(__name__)
 
 
@@ -30,6 +34,21 @@ def register_user() -> str:
 
     msg = {"email": email, "message": "user created"}
     return jsonify(msg)
+
+
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
+def login():
+    """log in"""
+    user_request = request.form
+    user_email = user_request.get('email', '')
+    user_password = user_request.get('password', '')
+    valid_log = AUTH.valid_login(user_email, user_password)
+    if not valid_log:
+        abort(401)
+    response = make_response(jsonify({"email": user_email,
+                                      "message": "logged in"}))
+    response.set_cookie('session_id', AUTH.create_session(user_email))
+    return response
 
 
 if __name__ == "__main__":

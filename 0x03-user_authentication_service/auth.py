@@ -52,7 +52,7 @@ class Auth:
             pass
         return False
 
-    def ceate_session(self, email: str) -> str:
+    def create_session(self, email: str) -> str:
         """Get session ID"""
         session_id = _generate_uuid()
         try:
