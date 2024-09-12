@@ -59,3 +59,8 @@ try:
 except ValueError:
     print("Error")
 
+
+print("task 4 hash")
+from auth import _hash_password
+
+print(_hash_password("Hello Holberton"))
