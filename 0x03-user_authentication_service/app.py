@@ -3,6 +3,7 @@
 from db import DB
 from auth import Auth
 from flask import Flask, jsonify, request, abort, redirect
+from flask.helpers import make_response
 from auth import Auth
 from user import User
 
