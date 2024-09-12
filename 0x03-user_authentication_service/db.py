@@ -4,8 +4,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import Session
-
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
+from typing import TypeVar
 from user import Base, User
 
 
@@ -22,7 +23,7 @@ class DB:
         self.__session = None
 
     @property
-    def _session(self) -> Session:
+    def _session(self):
         """Memoized session object
         """
         if self.__session is None:
@@ -38,7 +39,7 @@ class DB:
         session.commit()
         return u
 
-    def find_user(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """find user based on all kwargs
 
         Raises:
@@ -51,8 +52,8 @@ class DB:
             raise InvalidRequestError
 
         keys = set(kwargs.keys())
-        user_cols = set(User.__table__columns.keys())
-        if not keys.issuset(user_cols):
+        user_cols = set(User.__table__.columns.keys())
+        if not keys.issubset(user_cols):
             raise InvalidRequestError
 
         user = self._session.query(User).filter_by(**kwargs).first()
