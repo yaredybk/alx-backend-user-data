@@ -38,7 +38,7 @@ class DB:
         session.commit()
         return u
 
-    def find_user(self), **kwargs) ->User:
+    def find_user(self, **kwargs) -> User:
         """find user based on all kwargs
 
         Raises:
