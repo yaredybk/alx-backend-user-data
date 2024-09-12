@@ -17,7 +17,6 @@ import requests
 origin_url = 'http://localhost:5000'
 
 
-
 def register_user(email: str, password: str) -> None:
     """ Test for validating user registration """
     data = {
