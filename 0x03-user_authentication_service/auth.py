@@ -3,7 +3,7 @@
 import bcrypt
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
-from typing import Union
+from typing import Optional, Union
 from user import User
 from uuid import uuid4
 
@@ -52,7 +52,7 @@ class Auth:
             pass
         return False
 
-    def create_session(self, email: str) -> str:
+    def create_session(self, email: str) -> Optional[str]:
         """Get session ID"""
         session_id = _generate_uuid()
         try:
@@ -62,7 +62,7 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> User:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """ Find user by session ID"""
         if not session_id:
             return None
