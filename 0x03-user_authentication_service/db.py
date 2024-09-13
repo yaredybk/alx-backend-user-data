@@ -40,7 +40,7 @@ class DB:
         session.commit()
         return u
 
-    def find_user_by(self, **kwargs: Dict[str, Any]) -> Optional[User]:
+    def find_user_by(self, **kwargs: Dict[str, Any]) -> User:
         """find user based on all kwargs
 
         Raises:
